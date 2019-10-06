@@ -52,12 +52,12 @@ public class Utilities extends HttpServlet{
 			if (session.getAttribute("username")!=null)
 			{
 				String usertype = session.getAttribute("usertype").toString();
-				if(usertype.equalsIgnoreCase("retailer"))
+				if(usertype.equalsIgnoreCase("storeManager"))
 				{
 					//Store manager can add/update/delete products
 					result = result + "<li><a href='ProductCatalog'><span class='glyphicon'>ProductCatalog</span></a></li>";
 				}
-				else if(usertype.equalsIgnoreCase("manager"))
+				else if(usertype.equalsIgnoreCase("salesman"))
 				{
 					//salesman can add/update/delete customer orders, add customers
 					result = result + "<li><a href='AddCustomer'><span class='glyphicon'>AddCustomers</span></a></li>"
@@ -158,7 +158,7 @@ public class Utilities extends HttpServlet{
 			try
 			{
 				/*		
-				FileInputStream fileInputStream=new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\UserDetails.txt"));
+				FileInputStream fileInputStream=new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_2\\UserDetails.txt"));
 				ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
 				hm= (HashMap)objectInputStream.readObject();
 				*/
@@ -187,7 +187,7 @@ public class Utilities extends HttpServlet{
 		try
 		{
 			/*
-			FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
+			FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_2\\PaymentDetails.txt"));
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
 			orderPayments = (HashMap)objectInputStream.readObject();
 			*/
@@ -324,7 +324,7 @@ public class Utilities extends HttpServlet{
 		try
 		{
 			/*
-			FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
+			FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_2\\PaymentDetails.txt"));
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
 			orderPayments = (HashMap)objectInputStream.readObject();
 			*/
@@ -354,7 +354,7 @@ public class Utilities extends HttpServlet{
 		try
 		{
 			/*
-			FileOutputStream fileOutputStream = new FileOutputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
+			FileOutputStream fileOutputStream = new FileOutputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_2\\PaymentDetails.txt"));
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(orderPayments);
 			objectOutputStream.flush();

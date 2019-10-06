@@ -45,7 +45,7 @@ public class MySqlDataStoreUtilities
         
             getConnection();
             String insertIntoCustomerOrderQuery = "INSERT INTO customerOrders(OrderId,UserName,OrderName,OrderPrice,userAddress,creditCardNo,orderDate,deliveryDate,maxOrderCancellationDate) "
-            + "VALUES (?,?,?,?,?,?);";	
+            + "VALUES (?,?,?,?,?,?,?,?,?);";
                 
             PreparedStatement pst = conn.prepareStatement(insertIntoCustomerOrderQuery);
             //set the parameter for each column and execute the prepared statement
