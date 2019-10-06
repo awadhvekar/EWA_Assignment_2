@@ -14,16 +14,19 @@ import java.sql.*;
 
 //once the user clicks buy now button page is redirected to checkout page where user has to give checkout information
 
-public class CheckOut extends HttpServlet {
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class CheckOut extends HttpServlet
+{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
-	        Utilities Utility = new Utilities(request, pw);
+	    Utilities Utility = new Utilities(request, pw);
 		storeOrders(request, response);
 	}
 	
-	protected void storeOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void storeOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 	    try
         {
         response.setContentType("text/html");
@@ -83,10 +86,11 @@ public class CheckOut extends HttpServlet {
 		{
          System.out.println(e.getMessage());
 		}  			
-		}
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	    {
-		response.setContentType("text/html");
-		PrintWriter pw = response.getWriter();
-	    }
+	{
+	response.setContentType("text/html");
+	PrintWriter pw = response.getWriter();
+	}
 }

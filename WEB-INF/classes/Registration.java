@@ -54,7 +54,7 @@ public class Registration extends HttpServlet {
 			try
 			{
 				/*
-				FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\UserDetails.txt"));
+				FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_2\\UserDetails.txt"));
 				ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
 				hm= (HashMap)objectInputStream.readObject();
 				*/
@@ -76,9 +76,9 @@ public class Registration extends HttpServlet {
 
 				User user = new User(username,password,usertype);
 				hm.put(username, user);
-				MySqlDataStoreUtilities.insertUser(username,password,repassword,usertype);					
+				MySqlDataStoreUtilities.insertUser(username,password,repassword,usertype);
 				/*
-				FileOutputStream fileOutputStream = new FileOutputStream(TOMCAT_HOME+"\\webapps\\Assignment_1\\UserDetails.txt");
+				FileOutputStream fileOutputStream = new FileOutputStream(TOMCAT_HOME+"\\webapps\\Assignment_2\\UserDetails.txt");
         		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
            	 	objectOutputStream.writeObject(hm);
 				objectOutputStream.flush();
@@ -126,7 +126,7 @@ public class Registration extends HttpServlet {
 				+ "</td></tr><tr><td>"
 				+ "<h3>Re-Password</h3></td><td><input type='password' name='repassword' value='' class='input' required></input>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>User Type</h3></td><td><select name='usertype' class='input'><option value='customer' selected>Customer</option><option value='retailer'>Store Manager</option><option value='manager'>Salesman</option></select>"
+				+ "<h3>User Type</h3></td><td><select name='usertype' class='input'><option value='customer' selected>Customer</option><option value='storeManager'>Store Manager</option><option value='salesman'>Salesman</option></select>"
 				+ "</td></tr></table>"
 				+ "<input type='submit' class='btnbuy' name='ByUser' value='Create User' style='float: right;height: 20px margin: 20px; margin-right: 10px;'></input>"
 				+ "</form>" + "</div></div></div>");
