@@ -23,7 +23,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 
 		Utilities utility = new Utilities(request, pw);
 		//check if the user is logged in
-		if(!utility.isLoggedin()){
+		if(!utility.isLoggedin())
+		{
 			HttpSession session = request.getSession(true);				
 			session.setAttribute("login_msg", "Please Login to View your Orders");
 			response.sendRedirect("Login");
@@ -52,6 +53,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		//hashmap gets all the order details from file 
 
 		HashMap<Integer, ArrayList<OrderPayment>> orderPayments = new HashMap<Integer, ArrayList<OrderPayment>>();
+		/*
 		String TOMCAT_HOME = System.getProperty("catalina.home");
 
 		try
@@ -63,7 +65,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		catch(Exception e)
 		{
 		}
-		
+		*/
 
 		/*if order button is clicked that is user provided a order number to view order 
 		order details will be fetched and displayed in  a table 
@@ -78,9 +80,12 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				//get the order details from file
 				try
 				{
+					/*
 					FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
 					ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
 					orderPayments = (HashMap)objectInputStream.readObject();
+					*/
+					orderPayments=MySqlDataStoreUtilities.selectOrder();
 				}
 				catch(Exception e)
 				{
@@ -94,9 +99,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 
 				if(orderPayments.get(orderId)!=null)
 				{
-				for(OrderPayment od:orderPayments.get(orderId))	
-				if(od.getUserName().equals(username))
-				size= orderPayments.get(orderId).size();
+					for(OrderPayment od:orderPayments.get(orderId))	
+						if(od.getUserName().equals(username))
+							size= orderPayments.get(orderId).size();
 				}
 				// display the orders if there exist order with order id
 				if(size>0)
@@ -140,10 +145,12 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				//get the order from file
 				try
 				{
-		
+					/*
 					FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
 					ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
 					orderPayments = (HashMap)objectInputStream.readObject();
+					*/
+					orderPayments=MySqlDataStoreUtilities.selectOrder();
 				}
 				catch(Exception e)
 				{
@@ -151,45 +158,44 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				}
 				//get the exact order with same ordername and add it into cancel list to remove it later
 				for (OrderPayment oi : orderPayments.get(orderId)) 
+				{
+					if(oi.getOrderName().equals(orderName))
 					{
+						String maxDate = oi.getMaxOrderCancellationDate();
+						SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+						//Date maxDate = sdf.parse(maxdate); //date1
+						try
+						{
+							Date formattedMaxDate = new SimpleDateFormat("MM/dd/yyyy").parse(maxDate);
 
-						//Date formattedCurrentDate = sdf.parse(currentDate); //date2
-						//Date formattedCurrentDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
-							//if(oi.getOrderName().equals(orderName) && oi.getUserName().equals(username))
-							if(oi.getOrderName().equals(orderName))
+							String currentDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+							Date formattedCurrentDate = new SimpleDateFormat("MM/dd/yyyy").parse(currentDate);
+
+							if(formattedMaxDate.compareTo(formattedCurrentDate) > 0)
 							{
-								String maxDate = oi.getMaxOrderCancellationDate();
-								SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-								//Date maxDate = sdf.parse(maxdate); //date1
-								try
-								{
-									Date formattedMaxDate = new SimpleDateFormat("MM/dd/yyyy").parse(maxDate);
-		
-									String currentDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
-									Date formattedCurrentDate = new SimpleDateFormat("MM/dd/yyyy").parse(currentDate);
-
-									if(formattedMaxDate.compareTo(formattedCurrentDate) > 0)
-									{
-										ListOrderPayment.add(oi);
-										pw.print("<h4 style='color:red'>Your Order is Cancelled</h4>");
-									}
-									else
-									{
-										pw.print("<h4 style='color:red'>Less than 5 days left for delivery. You cannot cancel order now.</h4>");
-									}
-								}
-								catch(Exception e)
-								{
-
-								}								
+								MySqlDataStoreUtilities.deleteOrder(orderId,orderName); // check it once
+								ListOrderPayment.add(oi);
+								pw.print("<h4 style='color:red'>Your Order is Cancelled</h4>");
 							}
+							else
+							{
+								pw.print("<h4 style='color:red'>Less than 5 days left for delivery. You cannot cancel order now.</h4>");
+							}
+						}
+						catch(Exception e)
+						{
+
+						}								
 					}
+				}
 				//remove all the orders from hashmap that exist in cancel list
 				orderPayments.get(orderId).removeAll(ListOrderPayment);
 				if(orderPayments.get(orderId).size()==0)
-					{
-							orderPayments.remove(orderId);
-					}
+				{
+						orderPayments.remove(orderId);
+				}
+
+				/*
 				//save the updated hashmap with removed order to the file	
 				try
 				{	
@@ -203,8 +209,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				catch(Exception e)
 				{
 				
-				}	
-			}else
+				}
+				*/
+			}
+			else
 			{
 				pw.print("<h4 style='color:red'>Please select any product</h4>");
 			}

@@ -31,9 +31,12 @@ public class Login extends HttpServlet {
 		//else error message will be shown
 		try
 		{		
-          FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\UserDetails.txt"));
-          ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
-		  hm = (HashMap)objectInputStream.readObject();
+			/*
+			FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\UserDetails.txt"));
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
+			hm = (HashMap)objectInputStream.readObject();
+			*/
+			hm=MySqlDataStoreUtilities.selectUser();
 		}
 		catch(Exception e)
 		{
