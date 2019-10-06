@@ -156,10 +156,13 @@ public class Utilities extends HttpServlet{
 		HashMap<String, User> hm=new HashMap<String, User>();
 		String TOMCAT_HOME = System.getProperty("catalina.home");
 			try
-			{		
+			{
+				/*		
 				FileInputStream fileInputStream=new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\UserDetails.txt"));
 				ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
 				hm= (HashMap)objectInputStream.readObject();
+				*/
+				hm=MySqlDataStoreUtilities.selectUser();
 			}
 			catch(Exception e)
 			{
@@ -177,114 +180,134 @@ public class Utilities extends HttpServlet{
 	}
 
 	/*  getOrdersPaymentSize Function gets  the size of OrderPayment */
-	public int getOrderPaymentSize(){
+	public int getOrderPaymentSize()
+	{
 		HashMap<Integer, ArrayList<OrderPayment>> orderPayments = new HashMap<Integer, ArrayList<OrderPayment>>();
 		String TOMCAT_HOME = System.getProperty("catalina.home");
-			try
-			{
-				FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
-				ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
-				orderPayments = (HashMap)objectInputStream.readObject();
-			}
-			catch(Exception e)
-			{
-			
-			}
-			int size=0;
-			for(Map.Entry<Integer, ArrayList<OrderPayment>> entry : orderPayments.entrySet()){
-					 size=size + 1;
-					 
-			}
-			return size;		
+		try
+		{
+			/*
+			FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
+			orderPayments = (HashMap)objectInputStream.readObject();
+			*/
+			orderPayments =MySqlDataStoreUtilities.selectOrder();
+		}
+		catch(Exception e)
+		{
+		
+		}
+		int size=0;
+		for(Map.Entry<Integer, ArrayList<OrderPayment>> entry : orderPayments.entrySet())
+		{
+			size=size + 1;	 
+		}
+		return size;		
 	}
 
 	/*  CartCount Function gets  the size of User Orders*/
-	public int CartCount(){
+	public int CartCount()
+	{
 		if(isLoggedin())
-		return getCustomerOrders().size();
+			return getCustomerOrders().size();
 		return 0;
 	}
 	
 	/* StoreProduct Function stores the Purchased product in Orders HashMap according to the User Names.*/
 
-	public void storeProduct(String name,String type,String maker, String acc){
-		if(!OrdersHashMap.orders.containsKey(username())){	
+	public void storeProduct(String name,String type,String maker, String acc)
+	{
+		if(!OrdersHashMap.orders.containsKey(username()))
+		{	
 			ArrayList<OrderItem> arr = new ArrayList<OrderItem>();
 			OrdersHashMap.orders.put(username(), arr);
 		}
 		ArrayList<OrderItem> orderItems = OrdersHashMap.orders.get(username());
-		if(type.equals("consoles")){
+		if(type.equals("consoles"))
+		{
 			Console console;
 			console = SaxParserDataStore.consoles.get(name);
 			OrderItem orderitem = new OrderItem(console.getName(), console.getPrice(), console.getImage(), console.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("games")){
+		if(type.equals("games"))
+		{
 			Game game = null;
 			game = SaxParserDataStore.games.get(name);
 			OrderItem orderitem = new OrderItem(game.getName(), game.getPrice(), game.getImage(), game.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("tablets")){
+		if(type.equals("tablets"))
+		{
 			Tablet tablet = null;
 			tablet = SaxParserDataStore.tablets.get(name);
 			OrderItem orderitem = new OrderItem(tablet.getName(), tablet.getPrice(), tablet.getImage(), tablet.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("accessories")){	
+		if(type.equals("accessories"))
+		{	
 			Accessory accessory = SaxParserDataStore.accessories.get(name); 
 			OrderItem orderitem = new OrderItem(accessory.getName(), accessory.getPrice(), accessory.getImage(), accessory.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("televisions")){
+		if(type.equals("televisions"))
+		{
 			Television television;
 			television = SaxParserDataStore.televisions.get(name);
 			OrderItem orderitem = new OrderItem(television.getName(), television.getPrice(), television.getImage(), television.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("soundSystems")){
+		if(type.equals("soundSystems"))
+		{
 			SoundSystem soundSystem;
 			soundSystem = SaxParserDataStore.soundSystems.get(name);
 			OrderItem orderitem = new OrderItem(soundSystem.getName(), soundSystem.getPrice(), soundSystem.getImage(), soundSystem.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("phones")){
+		if(type.equals("phones"))
+		{
 			Phone phone;
 			phone = SaxParserDataStore.phones.get(name);
 			OrderItem orderitem = new OrderItem(phone.getName(), phone.getPrice(), phone.getImage(), phone.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("laptops")){
+		if(type.equals("laptops"))
+		{
 			Laptop laptop;
 			laptop = SaxParserDataStore.laptops.get(name);
 			OrderItem orderitem = new OrderItem(laptop.getName(), laptop.getPrice(), laptop.getImage(), laptop.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("voiceAssistants")){
+		if(type.equals("voiceAssistants"))
+		{
 			VoiceAssistant voiceAssistant;
 			voiceAssistant = SaxParserDataStore.voiceAssistants.get(name);
 			OrderItem orderitem = new OrderItem(voiceAssistant.getName(), voiceAssistant.getPrice(), voiceAssistant.getImage(), voiceAssistant.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("fitnessWatches")){
+		if(type.equals("fitnessWatches"))
+		{
 			FitnessWatch fitnessWatch;
 			fitnessWatch = SaxParserDataStore.fitnessWatches.get(name);
 			OrderItem orderitem = new OrderItem(fitnessWatch.getName(), fitnessWatch.getPrice(), fitnessWatch.getImage(), fitnessWatch.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("smartWatches")){
+		if(type.equals("smartWatches"))
+		{
 			SmartWatch smartWatch;
 			smartWatch = SaxParserDataStore.smartWatches.get(name);
 			OrderItem orderitem = new OrderItem(smartWatch.getName(), smartWatch.getPrice(), smartWatch.getImage(), smartWatch.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("headphones")){
+		if(type.equals("headphones"))
+		{
 			Headphone headphone;
 			headphone = SaxParserDataStore.headphones.get(name);
 			OrderItem orderitem = new OrderItem(headphone.getName(), headphone.getPrice(), headphone.getImage(), headphone.getRetailer());
 			orderItems.add(orderitem);
 		}
-		if(type.equals("wirelessPlans")){
+		if(type.equals("wirelessPlans"))
+		{
 			WirelessPlan wirelessPlan;
 			wirelessPlan = SaxParserDataStore.wirelessPlans.get(name);
 			OrderItem orderitem = new OrderItem(wirelessPlan.getName(), wirelessPlan.getPrice(), wirelessPlan.getImage(), wirelessPlan.getRetailer());
@@ -296,153 +319,174 @@ public class Utilities extends HttpServlet{
 	public void storePayment(int orderId,
 		String orderName,double orderPrice,String userAddress,String creditCardNo,String orderDate, String deliveryDate, String maxOrderCancellationDate){
 		HashMap<Integer, ArrayList<OrderPayment>> orderPayments= new HashMap<Integer, ArrayList<OrderPayment>>();
-		String TOMCAT_HOME = System.getProperty("catalina.home");
+		//String TOMCAT_HOME = System.getProperty("catalina.home");
 			// get the payment details file 
-			try
-			{
-				FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
-				ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
-				orderPayments = (HashMap)objectInputStream.readObject();
-			}
-			catch(Exception e)
-			{
-			
-			}
-			if(orderPayments==null)
-			{
-				orderPayments = new HashMap<Integer, ArrayList<OrderPayment>>();
-			}
-			// if there exist order id already add it into same list for order id or create a new record with order id
-			
-			if(!orderPayments.containsKey(orderId)){	
-				ArrayList<OrderPayment> arr = new ArrayList<OrderPayment>();
-				orderPayments.put(orderId, arr);
-			}
+		try
+		{
+			/*
+			FileInputStream fileInputStream = new FileInputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);	      
+			orderPayments = (HashMap)objectInputStream.readObject();
+			*/
+			orderPayments=MySqlDataStoreUtilities.selectOrder();
+		}
+		catch(Exception e)
+		{
+		
+		}
+		if(orderPayments==null)
+		{
+			orderPayments = new HashMap<Integer, ArrayList<OrderPayment>>();
+		}
+		// if there exist order id already add it into same list for order id or create a new record with order id
+		
+		if(!orderPayments.containsKey(orderId))
+		{	
+			ArrayList<OrderPayment> arr = new ArrayList<OrderPayment>();
+			orderPayments.put(orderId, arr);
+		}
 		ArrayList<OrderPayment> listOrderPayment = orderPayments.get(orderId);		
 		OrderPayment orderpayment = new OrderPayment(orderId,username(),orderName,orderPrice,userAddress,creditCardNo,orderDate,deliveryDate,maxOrderCancellationDate);
 		listOrderPayment.add(orderpayment);	
 			
 			// add order details into file
 
-			try
-			{	
-				FileOutputStream fileOutputStream = new FileOutputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
-				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            	objectOutputStream.writeObject(orderPayments);
-				objectOutputStream.flush();
-				objectOutputStream.close();       
-				fileOutputStream.close();
-			}
-			catch(Exception e)
-			{
-				System.out.println("inside exception file not written properly");
-			}	
+		try
+		{
+			/*
+			FileOutputStream fileOutputStream = new FileOutputStream(new File(TOMCAT_HOME+"\\webapps\\Assignment_1\\PaymentDetails.txt"));
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(orderPayments);
+			objectOutputStream.flush();
+			objectOutputStream.close();       
+			fileOutputStream.close();
+			*/
+			MySqlDataStoreUtilities.insertOrder(orderId,username(),orderName,orderPrice,userAddress,creditCardNo,orderDate,deliveryDate,maxOrderCancellationDate);
+		}
+		catch(Exception e)
+		{
+			System.out.println("inside exception file not written properly");
+		}	
 	}
 
 	
 	/* getConsoles Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, Console> getConsoles(){
-			HashMap<String, Console> hm = new HashMap<String, Console>();
-			hm.putAll(SaxParserDataStore.consoles);
-			return hm;
+	public HashMap<String, Console> getConsoles()
+	{
+		HashMap<String, Console> hm = new HashMap<String, Console>();
+		hm.putAll(SaxParserDataStore.consoles);
+		return hm;
 	}
 	
 	/* getGames Functions returns the  Hashmap with all Games in the store.*/
 
-	public HashMap<String, Game> getGames(){
-			HashMap<String, Game> hm = new HashMap<String, Game>();
-			hm.putAll(SaxParserDataStore.games);
-			return hm;
+	public HashMap<String, Game> getGames()
+	{
+		HashMap<String, Game> hm = new HashMap<String, Game>();
+		hm.putAll(SaxParserDataStore.games);
+		return hm;
 	}
 	
 	/* getTablets Functions returns the Hashmap with all Tablet in the store.*/
 
-	public HashMap<String, Tablet> getTablets(){
-			HashMap<String, Tablet> hm = new HashMap<String, Tablet>();
-			hm.putAll(SaxParserDataStore.tablets);
-			return hm;
+	public HashMap<String, Tablet> getTablets()
+	{
+		HashMap<String, Tablet> hm = new HashMap<String, Tablet>();
+		hm.putAll(SaxParserDataStore.tablets);
+		return hm;
 	}
 	
 	/* getSoundSystems Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, SoundSystem> getSoundSystems(){
-			HashMap<String, SoundSystem> hm = new HashMap<String, SoundSystem>();
-			hm.putAll(SaxParserDataStore.soundSystems);
-			return hm;
+	public HashMap<String, SoundSystem> getSoundSystems()
+	{
+		HashMap<String, SoundSystem> hm = new HashMap<String, SoundSystem>();
+		hm.putAll(SaxParserDataStore.soundSystems);
+		return hm;
 	}
 	
 	/* getPhones Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, Phone> getPhones(){
-			HashMap<String, Phone> hm = new HashMap<String, Phone>();
-			hm.putAll(SaxParserDataStore.phones);
-			return hm;
+	public HashMap<String, Phone> getPhones()
+	{
+		HashMap<String, Phone> hm = new HashMap<String, Phone>();
+		hm.putAll(SaxParserDataStore.phones);
+		return hm;
 	}
 	
 	/* getLaptops Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, Laptop> getLaptops(){
-			HashMap<String, Laptop> hm = new HashMap<String, Laptop>();
-			hm.putAll(SaxParserDataStore.laptops);
-			return hm;
+	public HashMap<String, Laptop> getLaptops()
+	{
+		HashMap<String, Laptop> hm = new HashMap<String, Laptop>();
+		hm.putAll(SaxParserDataStore.laptops);
+		return hm;
 	}
 	
 	/* getVoiceAssistants Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, VoiceAssistant> getVoiceAssistants(){
-			HashMap<String, VoiceAssistant> hm = new HashMap<String, VoiceAssistant>();
-			hm.putAll(SaxParserDataStore.voiceAssistants);
-			return hm;
+	public HashMap<String, VoiceAssistant> getVoiceAssistants()
+	{
+		HashMap<String, VoiceAssistant> hm = new HashMap<String, VoiceAssistant>();
+		hm.putAll(SaxParserDataStore.voiceAssistants);
+		return hm;
 	}
 	
 	/* getFitnessWatches Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, FitnessWatch> getFitnessWatches(){
-			HashMap<String, FitnessWatch> hm = new HashMap<String, FitnessWatch>();
-			hm.putAll(SaxParserDataStore.fitnessWatches);
-			return hm;
+	public HashMap<String, FitnessWatch> getFitnessWatches()
+	{
+		HashMap<String, FitnessWatch> hm = new HashMap<String, FitnessWatch>();
+		hm.putAll(SaxParserDataStore.fitnessWatches);
+		return hm;
 	}
 	
 	/* getSmartWatches Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, SmartWatch> getSmartWatches(){
-			HashMap<String, SmartWatch> hm = new HashMap<String, SmartWatch>();
-			hm.putAll(SaxParserDataStore.smartWatches);
-			return hm;
+	public HashMap<String, SmartWatch> getSmartWatches()
+	{
+		HashMap<String, SmartWatch> hm = new HashMap<String, SmartWatch>();
+		hm.putAll(SaxParserDataStore.smartWatches);
+		return hm;
 	}
 	
 	/* getHeadphones Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, Headphone> getHeadphones(){
-			HashMap<String, Headphone> hm = new HashMap<String, Headphone>();
-			hm.putAll(SaxParserDataStore.headphones);
-			return hm;
+	public HashMap<String, Headphone> getHeadphones()
+	{
+		HashMap<String, Headphone> hm = new HashMap<String, Headphone>();
+		hm.putAll(SaxParserDataStore.headphones);
+		return hm;
 	}
 	
 	/* getWirelessPlans Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, WirelessPlan> getWirelessPlans(){
-			HashMap<String, WirelessPlan> hm = new HashMap<String, WirelessPlan>();
-			hm.putAll(SaxParserDataStore.wirelessPlans);
-			return hm;
+	public HashMap<String, WirelessPlan> getWirelessPlans()
+	{
+		HashMap<String, WirelessPlan> hm = new HashMap<String, WirelessPlan>();
+		hm.putAll(SaxParserDataStore.wirelessPlans);
+		return hm;
 	}
 	
 	/* getTelevisions Functions returns the Hashmap with all consoles in the store.*/
 
-	public HashMap<String, Television> getTelevisions(){
-			HashMap<String, Television> hm = new HashMap<String, Television>();
-			hm.putAll(SaxParserDataStore.televisions);
-			return hm;
+	public HashMap<String, Television> getTelevisions()
+	{
+		HashMap<String, Television> hm = new HashMap<String, Television>();
+		hm.putAll(SaxParserDataStore.televisions);
+		return hm;
 	}
 	
 	
 	
 	/* getProducts Functions returns the Arraylist of consoles in the store.*/
 
-	public ArrayList<String> getProducts(){
+	public ArrayList<String> getProducts()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, Console> entry : getConsoles().entrySet()){			
+		for(Map.Entry<String, Console> entry : getConsoles().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -450,9 +494,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProducts Functions returns the Arraylist of games in the store.*/
 
-	public ArrayList<String> getProductsGame(){		
+	public ArrayList<String> getProductsGame()
+	{		
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, Game> entry : getGames().entrySet()){
+		for(Map.Entry<String, Game> entry : getGames().entrySet())
+		{
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -460,9 +506,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProducts Functions returns the Arraylist of Tablets in the store.*/
 
-	public ArrayList<String> getProductsTablets(){		
+	public ArrayList<String> getProductsTablets()
+	{		
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, Tablet> entry : getTablets().entrySet()){
+		for(Map.Entry<String, Tablet> entry : getTablets().entrySet())
+		{
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -470,9 +518,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProducts Functions returns the Arraylist of Televisions in the store.*/
 
-	public ArrayList<String> getProductsTelevisions(){
+	public ArrayList<String> getProductsTelevisions()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, Television> entry : getTelevisions().entrySet()){			
+		for(Map.Entry<String, Television> entry : getTelevisions().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -480,9 +530,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProductsSoundSystems Functions returns the Arraylist of SoundSystems in the store.*/
 
-	public ArrayList<String> getProductsSoundSystems(){
+	public ArrayList<String> getProductsSoundSystems()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, SoundSystem> entry : getSoundSystems().entrySet()){			
+		for(Map.Entry<String, SoundSystem> entry : getSoundSystems().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -490,9 +542,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProductsPhones Functions returns the Arraylist of Phones in the store.*/
 
-	public ArrayList<String> getProductsPhones(){
+	public ArrayList<String> getProductsPhones()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, Phone> entry : getPhones().entrySet()){			
+		for(Map.Entry<String, Phone> entry : getPhones().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -500,9 +554,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProductsLaptops Functions returns the Arraylist of Laptop in the store.*/
 
-	public ArrayList<String> getProductsLaptops(){
+	public ArrayList<String> getProductsLaptops()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, Laptop> entry : getLaptops().entrySet()){			
+		for(Map.Entry<String, Laptop> entry : getLaptops().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -510,9 +566,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProductsVoiceAssistants Functions returns the Arraylist of VoiceAssistant in the store.*/
 
-	public ArrayList<String> getProductsVoiceAssistants(){
+	public ArrayList<String> getProductsVoiceAssistants()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, VoiceAssistant> entry : getVoiceAssistants().entrySet()){			
+		for(Map.Entry<String, VoiceAssistant> entry : getVoiceAssistants().entrySet())
+		{
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -520,9 +578,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProductsFitnessWatches Functions returns the Arraylist of FitnessWatches in the store.*/
 
-	public ArrayList<String> getProductsFitnessWatches(){
+	public ArrayList<String> getProductsFitnessWatches()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, FitnessWatch> entry : getFitnessWatches().entrySet()){			
+		for(Map.Entry<String, FitnessWatch> entry : getFitnessWatches().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -530,9 +590,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProductsSmartWatches Functions returns the Arraylist of Televisions in the store.*/
 
-	public ArrayList<String> getProductsSmartWatches(){
+	public ArrayList<String> getProductsSmartWatches()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, SmartWatch> entry : getSmartWatches().entrySet()){			
+		for(Map.Entry<String, SmartWatch> entry : getSmartWatches().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -540,9 +602,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProductsHeadphones Functions returns the Arraylist of Headphones in the store.*/
 
-	public ArrayList<String> getProductsHeadphones(){
+	public ArrayList<String> getProductsHeadphones()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, Headphone> entry : getHeadphones().entrySet()){			
+		for(Map.Entry<String, Headphone> entry : getHeadphones().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
@@ -550,9 +614,11 @@ public class Utilities extends HttpServlet{
 	
 	/* getProductsWirelessPlans Functions returns the Arraylist of WirelessPlans in the store.*/
 
-	public ArrayList<String> getProductsWirelessPlans(){
+	public ArrayList<String> getProductsWirelessPlans()
+	{
 		ArrayList<String> ar = new ArrayList<String>();
-		for(Map.Entry<String, WirelessPlan> entry : getWirelessPlans().entrySet()){			
+		for(Map.Entry<String, WirelessPlan> entry : getWirelessPlans().entrySet())
+		{			
 			ar.add(entry.getValue().getName());
 		}
 		return ar;
