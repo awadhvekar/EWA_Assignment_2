@@ -173,7 +173,7 @@ public class Utilities extends HttpServlet{
 	
 	/*  getCustomerOrders Function gets  the Orders for the user*/
 	public ArrayList<OrderItem> getCustomerOrders(){
-		ArrayList<OrderItem> order = new ArrayList<OrderItem>(); 
+		ArrayList<OrderItem> order = new ArrayList<OrderItem>();
 		if(OrdersHashMap.orders.containsKey(username()))
 			order= OrdersHashMap.orders.get(username());
 		return order;
