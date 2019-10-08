@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,21 +26,40 @@ public class Cart extends HttpServlet {
 		String type = request.getParameter("type");
 		String maker = request.getParameter("maker");
 		String access = request.getParameter("access");
-		String orderPrice = request.getParameter("orderPrice");
+		/*
+		double orderPrice = 0;
+		//double orderPrice = Double.parseDouble(request.getParameter("orderPrice"));
+		try
+		{
+			orderPrice = Double.parseDouble(request.getParameter("orderPrice"));
+		}
+		catch(Exception e)
+		{
+			
+		}
+		//String orderPrice = request.getParameter("orderPrice");
 		String orderName = request.getParameter("orderName");
 		String deleteItemFromCart = request.getParameter("deleteItemFromCart");
+		
 
-		if(orderPrice != null && orderName != null && deleteItemFromCart.equalsIgnoreCase("DeleteItem"))
+		if(orderPrice != 0 && orderName != null && deleteItemFromCart.equalsIgnoreCase("DeleteItem"))
+		//if(orderPrice != null && orderName != null && deleteItemFromCart.equalsIgnoreCase("DeleteItem"))
 		{
+			ArrayList<OrderItem> order = new ArrayList<OrderItem>();
+			order = utility.getCustomerOrders();
 			for (OrderItem oi : utility.getCustomerOrders())
 			{
-				if(oi.getName().equalsIgnoreCase(orderName))
+				//if(oi.getName().equalsIgnoreCase(orderName) && oi.getPrice().toString().equals(orderPrice))
+				if(oi.getName().equalsIgnoreCase(orderName) && oi.getPrice() == orderPrice)
+				//if(oi.getName().equalsIgnoreCase(orderName))
 				{
 					//&& oi.getPrice().equals(orderPrice)
 					//Delete item from Hashmap
+					order.remove(oi);
 				}
 			}
 		}
+		*/
 		System.out.print("name" + name + "type" + type + "maker" + maker + "accesee" + access);
 
 		/* StoreProduct Function stores the Purchased product in Orders HashMap.*/	
@@ -80,7 +100,8 @@ public class Cart extends HttpServlet {
 				pw.print("<td>"+i+".</td><td>"+oi.getName()+"</td><td>: "+oi.getPrice()+"</td>");
 				pw.print("<input type='hidden' name='orderName' value='"+oi.getName()+"'>");
 				pw.print("<input type='hidden' name='orderPrice' value='"+oi.getPrice()+"'>");
-				pw.print("<td><form action='Cart' method='POST'><input type='hidden' name='orderPrice' value='"+oi.getPrice()+"'><input type='hidden' name='orderName' value='"+oi.getName()+"'><input type='submit' name='deleteItemFromCart' value='DeleteItem' /></form></td>");
+				pw.print("<td><a href='DeleteFromCart?name="+oi.getName()+"&price="+oi.getPrice()+"'>Delete Item</a></td>");
+				/* <form action='Cart' method='POST'><input type='hidden' name='orderPrice' value='"+oi.getPrice()+"'><input type='hidden' name='orderName' value='"+oi.getName()+"'><input type='submit' name='deleteItemFromCart' value='DeleteItem' /></form> */
 				pw.print("</tr>");
 				total = total +oi.getPrice();
 				i++;
