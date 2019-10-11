@@ -45,14 +45,14 @@ public class Login extends HttpServlet {
 		User user = hm.get(username);
 		if(user!=null)
 		{
-		 String user_password = user.getPassword();
-		 if (password.equals(user_password)) 
+			String user_password = user.getPassword();
+			if (password.equals(user_password) && usertype.equals(user.getUsertype())) 
 			{
-			HttpSession session = request.getSession(true);
-			session.setAttribute("username", user.getName());
-			session.setAttribute("usertype", user.getUsertype());
-			response.sendRedirect("Home");
-			return;
+				HttpSession session = request.getSession(true);
+				session.setAttribute("username", user.getName());
+				session.setAttribute("usertype", user.getUsertype());
+				response.sendRedirect("Home");
+				return;
 			}
 		}
 		displayLogin(request, response, pw, true);
@@ -91,7 +91,7 @@ public class Login extends HttpServlet {
 				+ "</td></tr><tr><td>"
 				+ "<h3>Password</h3></td><td><input type='password' name='password' value='' class='input' required></input>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>User Type</h3></td><td><select name='usertype' class='input'><option value='customer' selected>Customer</option><option value='retailer'>Store Manager</option><option value='manager'>Salesman</option></select>"
+				+ "<h3>User Type</h3></td><td><select name='usertype' class='input'><option value='customer' selected>Customer</option><option value='storeManager'>Store Manager</option><option value='salesman'>Salesman</option></select>"
 				+ "</td></tr><tr><td></td><td>"
 				+ "<input type='submit' class='btnbuy' value='Login' style='float: right;height: 20px margin: 20px; margin-right: 10px;'></input>"
 				+ "</td></tr><tr><td></td><td>"
