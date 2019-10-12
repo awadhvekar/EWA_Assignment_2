@@ -19,17 +19,30 @@ public class HeadphoneList extends HttpServlet
 		String name = null;
 		String CategoryName = request.getParameter("maker");
 		
+		HashMap<String, Headphone> allHeadphones = new HashMap<String, Headphone>();
 		HashMap<String, Headphone> hm = new HashMap<String, Headphone>();
+
+		try
+		{
+			allHeadphones = MySqlDataStoreUtilities.getHeadphones();
+		}
+		catch(Exception e)
+		{
+
+		}
+
 		if(CategoryName==null)
 		{
-			hm.putAll(SaxParserDataStore.headphones); //need to make change here
+			//hm.putAll(SaxParserDataStore.headphones); //need to make change here
+			hm.putAll(allHeadphones); //need to make change here
 			name = "";
 		}
 		else
 		{
 			if(CategoryName.equals("microsoft"))
 			{
-				for(Map.Entry<String,Headphone> entry : SaxParserDataStore.headphones.entrySet())
+				//for(Map.Entry<String,Headphone> entry : SaxParserDataStore.headphones.entrySet())
+				for(Map.Entry<String,Headphone> entry : allHeadphones.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Microsoft"))
 					{
@@ -40,7 +53,7 @@ public class HeadphoneList extends HttpServlet
 			}
 			else if(CategoryName.equals("sony"))
 			{
-				for(Map.Entry<String,Headphone> entry : SaxParserDataStore.headphones.entrySet())
+				for(Map.Entry<String,Headphone> entry : allHeadphones.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Sony"))
 					{
@@ -51,7 +64,7 @@ public class HeadphoneList extends HttpServlet
 			}
 			else if(CategoryName.equals("lg"))
 			{
-				for(Map.Entry<String,Headphone> entry : SaxParserDataStore.headphones.entrySet())
+				for(Map.Entry<String,Headphone> entry : allHeadphones.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("LG"))
 					{
@@ -62,7 +75,7 @@ public class HeadphoneList extends HttpServlet
 			}
 			else if(CategoryName.equals("samsung"))
 			{
-				for(Map.Entry<String,Headphone> entry : SaxParserDataStore.headphones.entrySet())
+				for(Map.Entry<String,Headphone> entry : allHeadphones.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Samsung"))
 					{
@@ -73,7 +86,7 @@ public class HeadphoneList extends HttpServlet
 			}
 			else if(CategoryName.equals("onida"))
 			{
-				for(Map.Entry<String,Headphone> entry : SaxParserDataStore.headphones.entrySet())
+				for(Map.Entry<String,Headphone> entry : allHeadphones.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Onida"))
 					{

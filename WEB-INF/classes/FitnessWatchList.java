@@ -19,17 +19,29 @@ public class FitnessWatchList extends HttpServlet
 		String name = null;
 		String CategoryName = request.getParameter("maker");
 		
+		HashMap<String, FitnessWatch> allFitnessWatches = new HashMap<String, FitnessWatch>();
 		HashMap<String, FitnessWatch> hm = new HashMap<String, FitnessWatch>();
+
+		try
+		{
+			allFitnessWatches = MySqlDataStoreUtilities.getFitnessWatches();
+		}
+		catch(Exception e)
+		{
+
+		}
+
 		if(CategoryName==null)
 		{
-			hm.putAll(SaxParserDataStore.fitnessWatches); //need to make change here
+			//hm.putAll(SaxParserDataStore.fitnessWatches);
+			hm.putAll(allFitnessWatches);
 			name = "";
 		}
 		else
 		{
 			if(CategoryName.equals("microsoft"))
 			{
-				for(Map.Entry<String,FitnessWatch> entry : SaxParserDataStore.fitnessWatches.entrySet())
+				for(Map.Entry<String,FitnessWatch> entry : allFitnessWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Microsoft"))
 					{
@@ -40,7 +52,7 @@ public class FitnessWatchList extends HttpServlet
 			}
 			else if(CategoryName.equals("sony"))
 			{
-				for(Map.Entry<String,FitnessWatch> entry : SaxParserDataStore.fitnessWatches.entrySet())
+				for(Map.Entry<String,FitnessWatch> entry : allFitnessWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Sony"))
 					{
@@ -51,7 +63,7 @@ public class FitnessWatchList extends HttpServlet
 			}
 			else if(CategoryName.equals("lg"))
 			{
-				for(Map.Entry<String,FitnessWatch> entry : SaxParserDataStore.fitnessWatches.entrySet())
+				for(Map.Entry<String,FitnessWatch> entry : allFitnessWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("LG"))
 					{
@@ -62,7 +74,7 @@ public class FitnessWatchList extends HttpServlet
 			}
 			else if(CategoryName.equals("samsung"))
 			{
-				for(Map.Entry<String,FitnessWatch> entry : SaxParserDataStore.fitnessWatches.entrySet())
+				for(Map.Entry<String,FitnessWatch> entry : allFitnessWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Samsung"))
 					{
@@ -73,7 +85,7 @@ public class FitnessWatchList extends HttpServlet
 			}
 			else if(CategoryName.equals("onida"))
 			{
-				for(Map.Entry<String,FitnessWatch> entry : SaxParserDataStore.fitnessWatches.entrySet())
+				for(Map.Entry<String,FitnessWatch> entry : allFitnessWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Onida"))
 					{

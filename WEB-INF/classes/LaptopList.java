@@ -19,17 +19,30 @@ public class LaptopList extends HttpServlet
 		String name = null;
 		String CategoryName = request.getParameter("maker");
 		
+		HashMap<String, Laptop> allLaptops = new HashMap<String, Laptop>();
 		HashMap<String, Laptop> hm = new HashMap<String, Laptop>();
+
+		try
+		{
+			allLaptops = MySqlDataStoreUtilities.getLaptops();
+		}
+		catch(Exception e)
+		{
+
+		}
+
 		if(CategoryName==null)
 		{
-			hm.putAll(SaxParserDataStore.laptops); //need to make change here
+			hm.putAll(allLaptops);
+			//hm.putAll(SaxParserDataStore.laptops);
 			name = "";
 		}
 		else
 		{
 			if(CategoryName.equals("microsoft"))
 			{
-				for(Map.Entry<String,Laptop> entry : SaxParserDataStore.laptops.entrySet())
+				//for(Map.Entry<String,Laptop> entry : SaxParserDataStore.laptops.entrySet())
+				for(Map.Entry<String,Laptop> entry : allLaptops.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Microsoft"))
 					{
@@ -40,7 +53,7 @@ public class LaptopList extends HttpServlet
 			}
 			else if(CategoryName.equals("sony"))
 			{
-				for(Map.Entry<String,Laptop> entry : SaxParserDataStore.laptops.entrySet())
+				for(Map.Entry<String,Laptop> entry : allLaptops.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Sony"))
 					{
@@ -51,7 +64,7 @@ public class LaptopList extends HttpServlet
 			}
 			else if(CategoryName.equals("lg"))
 			{
-				for(Map.Entry<String,Laptop> entry : SaxParserDataStore.laptops.entrySet())
+				for(Map.Entry<String,Laptop> entry : allLaptops.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("LG"))
 					{
@@ -62,7 +75,7 @@ public class LaptopList extends HttpServlet
 			}
 			else if(CategoryName.equals("samsung"))
 			{
-				for(Map.Entry<String,Laptop> entry : SaxParserDataStore.laptops.entrySet())
+				for(Map.Entry<String,Laptop> entry : allLaptops.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Samsung"))
 					{
@@ -73,7 +86,7 @@ public class LaptopList extends HttpServlet
 			}
 			else if(CategoryName.equals("onida"))
 			{
-				for(Map.Entry<String,Laptop> entry : SaxParserDataStore.laptops.entrySet())
+				for(Map.Entry<String,Laptop> entry : allLaptops.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Onida"))
 					{
