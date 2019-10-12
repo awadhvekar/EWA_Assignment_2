@@ -23,18 +23,31 @@ public class TabletList extends HttpServlet {
 
 		String name = null;
 		String CategoryName = request.getParameter("maker");
+
+		HashMap<String, Tablet> allTablets = new HashMap<String, Tablet>();
 		HashMap<String, Tablet> hm = new HashMap<String, Tablet>();
+
+		try
+		{
+			allTablets = MySqlDataStoreUtilities.getTablets();
+		}
+		catch(Exception e)
+		{
+
+		}
 
 		if (CategoryName == null)	
 		{
-			hm.putAll(SaxParserDataStore.tablets);
+			//hm.putAll(SaxParserDataStore.tablets);
+			hm.putAll(allTablets);
 			name = "";
 		} 
 		else 
 		{
 			if(CategoryName.equals("apple")) 
 			{	
-				for(Map.Entry<String,Tablet> entry : SaxParserDataStore.tablets.entrySet())
+				//for(Map.Entry<String,Tablet> entry : SaxParserDataStore.tablets.entrySet())
+				for(Map.Entry<String,Tablet> entry : allTablets.entrySet())
 				{
 				  if(entry.getValue().getRetailer().equals("Apple"))
 				  {
@@ -45,7 +58,7 @@ public class TabletList extends HttpServlet {
 			} 
 			else if (CategoryName.equals("microsoft"))
 			{
-				for(Map.Entry<String,Tablet> entry : SaxParserDataStore.tablets.entrySet())
+				for(Map.Entry<String,Tablet> entry : allTablets.entrySet())
 				{
 				  if(entry.getValue().getRetailer().equals("Microsoft"))
 				  {
@@ -56,7 +69,7 @@ public class TabletList extends HttpServlet {
 			} 
 			else if (CategoryName.equals("samsung")) 
 			{
-				for(Map.Entry<String,Tablet> entry : SaxParserDataStore.tablets.entrySet())
+				for(Map.Entry<String,Tablet> entry : allTablets.entrySet())
 				{
 				  if(entry.getValue().getRetailer().equals("Samsung"))
 				 {

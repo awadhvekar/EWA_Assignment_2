@@ -19,17 +19,30 @@ public class VoiceAssistantList extends HttpServlet
 		String name = null;
 		String CategoryName = request.getParameter("maker");
 		
+		HashMap<String, VoiceAssistant> allVoiceAssistants = new HashMap<String, VoiceAssistant>();
 		HashMap<String, VoiceAssistant> hm = new HashMap<String, VoiceAssistant>();
+
+		try
+		{
+			allVoiceAssistants = MySqlDataStoreUtilities.getVoiceAssistants();
+		}
+		catch(Exception e)
+		{
+
+		}
+
 		if(CategoryName==null)
 		{
-			hm.putAll(SaxParserDataStore.voiceAssistants); //need to make change here
+			//hm.putAll(SaxParserDataStore.voiceAssistants);
+			hm.putAll(allVoiceAssistants);
 			name = "";
 		}
 		else
 		{
 			if(CategoryName.equals("microsoft"))
 			{
-				for(Map.Entry<String,VoiceAssistant> entry : SaxParserDataStore.voiceAssistants.entrySet())
+				//for(Map.Entry<String,VoiceAssistant> entry : SaxParserDataStore.voiceAssistants.entrySet())
+				for(Map.Entry<String,VoiceAssistant> entry : allVoiceAssistants.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Microsoft"))
 					{
@@ -40,7 +53,7 @@ public class VoiceAssistantList extends HttpServlet
 			}
 			else if(CategoryName.equals("sony"))
 			{
-				for(Map.Entry<String,VoiceAssistant> entry : SaxParserDataStore.voiceAssistants.entrySet())
+				for(Map.Entry<String,VoiceAssistant> entry : allVoiceAssistants.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Sony"))
 					{
@@ -51,7 +64,7 @@ public class VoiceAssistantList extends HttpServlet
 			}
 			else if(CategoryName.equals("lg"))
 			{
-				for(Map.Entry<String,VoiceAssistant> entry : SaxParserDataStore.voiceAssistants.entrySet())
+				for(Map.Entry<String,VoiceAssistant> entry : allVoiceAssistants.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("LG"))
 					{
@@ -62,7 +75,7 @@ public class VoiceAssistantList extends HttpServlet
 			}
 			else if(CategoryName.equals("samsung"))
 			{
-				for(Map.Entry<String,VoiceAssistant> entry : SaxParserDataStore.voiceAssistants.entrySet())
+				for(Map.Entry<String,VoiceAssistant> entry : allVoiceAssistants.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Samsung"))
 					{
@@ -73,7 +86,7 @@ public class VoiceAssistantList extends HttpServlet
 			}
 			else if(CategoryName.equals("onida"))
 			{
-				for(Map.Entry<String,VoiceAssistant> entry : SaxParserDataStore.voiceAssistants.entrySet())
+				for(Map.Entry<String,VoiceAssistant> entry : allVoiceAssistants.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Onida"))
 					{

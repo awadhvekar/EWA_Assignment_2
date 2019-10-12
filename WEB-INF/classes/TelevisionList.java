@@ -19,17 +19,29 @@ public class TelevisionList extends HttpServlet
 		String name = null;
 		String CategoryName = request.getParameter("maker");
 		
+		HashMap<String, Television> allTelevisions = new HashMap<String, Television>();
 		HashMap<String, Television> hm = new HashMap<String, Television>();
+
+		try
+		{
+			allTelevisions = MySqlDataStoreUtilities.getTelevisions();
+		}
+		catch(Exception e)
+		{
+
+		}
+
 		if(CategoryName==null)
 		{
-			hm.putAll(SaxParserDataStore.televisions); //need to make change here
+			hm.putAll(allTelevisions);
+			//hm.putAll(SaxParserDataStore.televisions);
 			name = "";
 		}
 		else
 		{
 			if(CategoryName.equals("microsoft"))
 			{
-				for(Map.Entry<String,Television> entry : SaxParserDataStore.televisions.entrySet())
+				for(Map.Entry<String,Television> entry : allTelevisions.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Microsoft"))
 					{
@@ -40,7 +52,7 @@ public class TelevisionList extends HttpServlet
 			}
 			else if(CategoryName.equals("sony"))
 			{
-				for(Map.Entry<String,Television> entry : SaxParserDataStore.televisions.entrySet())
+				for(Map.Entry<String,Television> entry : allTelevisions.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Sony"))
 					{
@@ -51,7 +63,7 @@ public class TelevisionList extends HttpServlet
 			}
 			else if(CategoryName.equals("lg"))
 			{
-				for(Map.Entry<String,Television> entry : SaxParserDataStore.televisions.entrySet())
+				for(Map.Entry<String,Television> entry : allTelevisions.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("LG"))
 					{
@@ -62,7 +74,7 @@ public class TelevisionList extends HttpServlet
 			}
 			else if(CategoryName.equals("samsung"))
 			{
-				for(Map.Entry<String,Television> entry : SaxParserDataStore.televisions.entrySet())
+				for(Map.Entry<String,Television> entry : allTelevisions.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Samsung"))
 					{
@@ -73,7 +85,7 @@ public class TelevisionList extends HttpServlet
 			}
 			else if(CategoryName.equals("onida"))
 			{
-				for(Map.Entry<String,Television> entry : SaxParserDataStore.televisions.entrySet())
+				for(Map.Entry<String,Television> entry : allTelevisions.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Onida"))
 					{

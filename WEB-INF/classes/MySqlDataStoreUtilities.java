@@ -147,4 +147,289 @@ public class MySqlDataStoreUtilities
         }
         return hm;			
     }
+
+    public static HashMap<String,WirelessPlan> getWirelessPlans()
+    {	
+        HashMap<String,WirelessPlan> hm=new HashMap<String,WirelessPlan>();
+        try 
+        {
+            getConnection();
+            
+            String selectWirelessPlan="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectWirelessPlan);
+            pst.setString(1,"wirelessPlan");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                WirelessPlan wp = new WirelessPlan(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), wp);
+                wp.setId(rs.getString("Id"));
+                
+                /*
+                try
+                {
+                    String selectaccessory = "Select * from Product_accessories where productName=?";
+                    PreparedStatement pstacc = conn.prepareStatement(selectaccessory);
+                    pstacc.setString(1,rs.getString("Id"));
+                    ResultSet rsacc = pstacc.executeQuery();
+                    
+                    HashMap<String,String> acchashmap = new HashMap<String,String>();
+                    while(rsacc.next())
+                    {    
+                        if (rsacc.getString("accessoriesName") != null)
+                        {
+                        
+                        acchashmap.put(rsacc.getString("accessoriesName"),rsacc.getString("accessoriesName"));
+                        con.setAccessories(acchashmap);
+                        }
+                    }					
+                }
+                catch(Exception e)
+                {
+                        e.printStackTrace();
+                }
+                */
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,Television> getTelevisions()
+    {	
+        HashMap<String,Television> hm=new HashMap<String,Television>();
+        try 
+        {
+            getConnection();
+            
+            String selectTelevision="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectTelevision);
+            pst.setString(1,"television");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                Television tv = new Television(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), tv);
+                tv.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,FitnessWatch> getFitnessWatches()
+    {	
+        HashMap<String,FitnessWatch> hm=new HashMap<String,FitnessWatch>();
+        try 
+        {
+            getConnection();
+            
+            String selectFitnessWatch="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectFitnessWatch);
+            pst.setString(1,"fitnessWatch");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                FitnessWatch fw = new FitnessWatch(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), fw);
+                fw.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,Headphone> getHeadphones()
+    {	
+        HashMap<String,Headphone> hm=new HashMap<String,Headphone>();
+        try 
+        {
+            getConnection();
+            
+            String selectHeadphone="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectHeadphone);
+            pst.setString(1,"headphone");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                Headphone hp = new Headphone(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), hp);
+                hp.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,Laptop> getLaptops()
+    {	
+        HashMap<String,Laptop> hm=new HashMap<String,Laptop>();
+        try 
+        {
+            getConnection();
+            
+            String selectLaptop="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectLaptop);
+            pst.setString(1,"laptop");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                Laptop lp = new Laptop(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), lp);
+                lp.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,Phone> getPhones()
+    {	
+        HashMap<String,Phone> hm=new HashMap<String,Phone>();
+        try 
+        {
+            getConnection();
+            
+            String selectPhone="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectPhone);
+            pst.setString(1,"phone");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                Phone ph = new Phone(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), ph);
+                ph.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,SmartWatch> getSmartWatches()
+    {	
+        HashMap<String,SmartWatch> hm=new HashMap<String,SmartWatch>();
+        try 
+        {
+            getConnection();
+            
+            String selectSmartWatch="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectSmartWatch);
+            pst.setString(1,"smartWatch");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                SmartWatch sw = new SmartWatch(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), sw);
+                sw.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,SoundSystem> getSoundSystems()
+    {	
+        HashMap<String,SoundSystem> hm=new HashMap<String,SoundSystem>();
+        try 
+        {
+            getConnection();
+            
+            String selectSoundSystem="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectSoundSystem);
+            pst.setString(1,"soundSystem");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                SoundSystem ss = new SoundSystem(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), ss);
+                ss.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,Tablet> getTablets()
+    {	
+        HashMap<String,Tablet> hm=new HashMap<String,Tablet>();
+        try 
+        {
+            getConnection();
+            
+            String selectTablet="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectTablet);
+            pst.setString(1,"tablet");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                Tablet tab = new Tablet(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), tab);
+                tab.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
+
+    public static HashMap<String,VoiceAssistant> getVoiceAssistants()
+    {	
+        HashMap<String,VoiceAssistant> hm=new HashMap<String,VoiceAssistant>();
+        try 
+        {
+            getConnection();
+            
+            String selectVoiceAssistant="select * from  Productdetails where ProductType=?";
+            PreparedStatement pst = conn.prepareStatement(selectVoiceAssistant);
+            pst.setString(1,"voiceAssistant");
+            ResultSet rs = pst.executeQuery();
+        
+            while(rs.next())
+            {	
+                VoiceAssistant va = new VoiceAssistant(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+                hm.put(rs.getString("Id"), va);
+                va.setId(rs.getString("Id"));
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        return hm;			
+    }
 }	

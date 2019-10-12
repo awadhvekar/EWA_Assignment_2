@@ -19,17 +19,30 @@ public class SmartWatchList extends HttpServlet
 		String name = null;
 		String CategoryName = request.getParameter("maker");
 		
+		HashMap<String, SmartWatch> allSmartWatches = new HashMap<String, SmartWatch>();
 		HashMap<String, SmartWatch> hm = new HashMap<String, SmartWatch>();
+
+		try
+		{
+			allSmartWatches = MySqlDataStoreUtilities.getSmartWatches();
+		}
+		catch(Exception e)
+		{
+
+		}
+
 		if(CategoryName==null)
 		{
-			hm.putAll(SaxParserDataStore.smartWatches); //need to make change here
+			//hm.putAll(SaxParserDataStore.smartWatches);
+			hm.putAll(allSmartWatches);
 			name = "";
 		}
 		else
 		{
 			if(CategoryName.equals("microsoft"))
 			{
-				for(Map.Entry<String,SmartWatch> entry : SaxParserDataStore.smartWatches.entrySet())
+				//for(Map.Entry<String,SmartWatch> entry : SaxParserDataStore.smartWatches.entrySet())
+				for(Map.Entry<String,SmartWatch> entry : allSmartWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Microsoft"))
 					{
@@ -40,7 +53,7 @@ public class SmartWatchList extends HttpServlet
 			}
 			else if(CategoryName.equals("sony"))
 			{
-				for(Map.Entry<String,SmartWatch> entry : SaxParserDataStore.smartWatches.entrySet())
+				for(Map.Entry<String,SmartWatch> entry : allSmartWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Sony"))
 					{
@@ -51,7 +64,7 @@ public class SmartWatchList extends HttpServlet
 			}
 			else if(CategoryName.equals("lg"))
 			{
-				for(Map.Entry<String,SmartWatch> entry : SaxParserDataStore.smartWatches.entrySet())
+				for(Map.Entry<String,SmartWatch> entry : allSmartWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("LG"))
 					{
@@ -62,7 +75,7 @@ public class SmartWatchList extends HttpServlet
 			}
 			else if(CategoryName.equals("samsung"))
 			{
-				for(Map.Entry<String,SmartWatch> entry : SaxParserDataStore.smartWatches.entrySet())
+				for(Map.Entry<String,SmartWatch> entry : allSmartWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Samsung"))
 					{
@@ -73,7 +86,7 @@ public class SmartWatchList extends HttpServlet
 			}
 			else if(CategoryName.equals("onida"))
 			{
-				for(Map.Entry<String,SmartWatch> entry : SaxParserDataStore.smartWatches.entrySet())
+				for(Map.Entry<String,SmartWatch> entry : allSmartWatches.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Onida"))
 					{

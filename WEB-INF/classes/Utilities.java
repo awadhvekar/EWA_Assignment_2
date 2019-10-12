@@ -223,6 +223,17 @@ public class Utilities extends HttpServlet{
 			OrdersHashMap.orders.put(username(), arr);
 		}
 		ArrayList<OrderItem> orderItems = OrdersHashMap.orders.get(username());
+		HashMap<String, WirelessPlan> allWirelessPlans = new HashMap<String, WirelessPlan>();
+		HashMap<String, Television> allTelevisions = new HashMap<String, Television>();
+		HashMap<String, FitnessWatch> allFitnessWatches = new HashMap<String, FitnessWatch>();
+		HashMap<String, Headphone> allHeadphones = new HashMap<String, Headphone>();
+		HashMap<String, Laptop> allLaptops = new HashMap<String, Laptop>();
+		HashMap<String, Phone> allPhones = new HashMap<String, Phone>();
+		HashMap<String, SmartWatch> allSmartWatches = new HashMap<String, SmartWatch>();
+		HashMap<String, SoundSystem> allSoundSystems = new HashMap<String, SoundSystem>();
+		HashMap<String, VoiceAssistant> allVoiceAssistants = new HashMap<String, VoiceAssistant>();
+		//HashMap<String, Tablet> allTablets = new HashMap<String, Tablet>();//not in use
+		
 		if(type.equals("consoles"))
 		{
 			Console console;
@@ -237,13 +248,23 @@ public class Utilities extends HttpServlet{
 			OrderItem orderitem = new OrderItem(game.getName(), game.getPrice(), game.getImage(), game.getRetailer());
 			orderItems.add(orderitem);
 		}
+		/*
 		if(type.equals("tablets"))
 		{
 			Tablet tablet = null;
-			tablet = SaxParserDataStore.tablets.get(name);
+			try
+			{
+				allTablets = MySqlDataStoreUtilities.getTablets();
+			}
+			catch(Exception e)
+			{
+
+			}
+			tablet = allTablets.get(name);
 			OrderItem orderitem = new OrderItem(tablet.getName(), tablet.getPrice(), tablet.getImage(), tablet.getRetailer());
 			orderItems.add(orderitem);
 		}
+		*/
 		if(type.equals("accessories"))
 		{	
 			Accessory accessory = SaxParserDataStore.accessories.get(name); 
@@ -253,63 +274,137 @@ public class Utilities extends HttpServlet{
 		if(type.equals("televisions"))
 		{
 			Television television;
-			television = SaxParserDataStore.televisions.get(name);
+			try
+			{
+				allTelevisions = MySqlDataStoreUtilities.getTelevisions();
+			}
+			catch(Exception e)
+			{
+
+			}
+			//television = SaxParserDataStore.televisions.get(name);
+			television = allTelevisions.get(name);
 			OrderItem orderitem = new OrderItem(television.getName(), television.getPrice(), television.getImage(), television.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("soundSystems"))
 		{
 			SoundSystem soundSystem;
-			soundSystem = SaxParserDataStore.soundSystems.get(name);
+			try
+			{
+				allSoundSystems = MySqlDataStoreUtilities.getSoundSystems();
+			}
+			catch(Exception e)
+			{
+
+			}
+			soundSystem = allSoundSystems.get(name);
 			OrderItem orderitem = new OrderItem(soundSystem.getName(), soundSystem.getPrice(), soundSystem.getImage(), soundSystem.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("phones"))
 		{
 			Phone phone;
-			phone = SaxParserDataStore.phones.get(name);
+			try
+			{
+				allPhones = MySqlDataStoreUtilities.getPhones();
+			}
+			catch(Exception e)
+			{
+
+			}
+			phone = allPhones.get(name);
 			OrderItem orderitem = new OrderItem(phone.getName(), phone.getPrice(), phone.getImage(), phone.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("laptops"))
 		{
 			Laptop laptop;
-			laptop = SaxParserDataStore.laptops.get(name);
+			try
+			{
+				allLaptops = MySqlDataStoreUtilities.getLaptops();
+			}
+			catch(Exception e)
+			{
+
+			}
+			laptop = allLaptops.get(name);
 			OrderItem orderitem = new OrderItem(laptop.getName(), laptop.getPrice(), laptop.getImage(), laptop.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("voiceAssistants"))
 		{
 			VoiceAssistant voiceAssistant;
-			voiceAssistant = SaxParserDataStore.voiceAssistants.get(name);
+			try
+			{
+				allVoiceAssistants = MySqlDataStoreUtilities.getVoiceAssistants();
+			}
+			catch(Exception e)
+			{
+
+			}
+			voiceAssistant = allVoiceAssistants.get(name);
 			OrderItem orderitem = new OrderItem(voiceAssistant.getName(), voiceAssistant.getPrice(), voiceAssistant.getImage(), voiceAssistant.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("fitnessWatches"))
 		{
 			FitnessWatch fitnessWatch;
-			fitnessWatch = SaxParserDataStore.fitnessWatches.get(name);
+			try
+			{
+				allFitnessWatches = MySqlDataStoreUtilities.getFitnessWatches();
+			}
+			catch(Exception e)
+			{
+
+			}
+			fitnessWatch = allFitnessWatches.get(name);
 			OrderItem orderitem = new OrderItem(fitnessWatch.getName(), fitnessWatch.getPrice(), fitnessWatch.getImage(), fitnessWatch.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("smartWatches"))
 		{
 			SmartWatch smartWatch;
-			smartWatch = SaxParserDataStore.smartWatches.get(name);
+			try
+			{
+				allSmartWatches = MySqlDataStoreUtilities.getSmartWatches();
+			}
+			catch(Exception e)
+			{
+
+			}
+			smartWatch = allSmartWatches.get(name);
 			OrderItem orderitem = new OrderItem(smartWatch.getName(), smartWatch.getPrice(), smartWatch.getImage(), smartWatch.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("headphones"))
 		{
 			Headphone headphone;
-			headphone = SaxParserDataStore.headphones.get(name);
+			try
+			{
+				allHeadphones = MySqlDataStoreUtilities.getHeadphones();
+			}
+			catch(Exception e)
+			{
+
+			}
+			headphone = allHeadphones.get(name);
 			OrderItem orderitem = new OrderItem(headphone.getName(), headphone.getPrice(), headphone.getImage(), headphone.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("wirelessPlans"))
 		{
 			WirelessPlan wirelessPlan;
-			wirelessPlan = SaxParserDataStore.wirelessPlans.get(name);
+			try
+			{
+				allWirelessPlans = MySqlDataStoreUtilities.getWirelessPlans();
+			}
+			catch(Exception e)
+			{
+
+			}
+			//wirelessPlan = SaxParserDataStore.wirelessPlans.get(name);
+			wirelessPlan = allWirelessPlans.get(name);
 			OrderItem orderitem = new OrderItem(wirelessPlan.getName(), wirelessPlan.getPrice(), wirelessPlan.getImage(), wirelessPlan.getRetailer());
 			orderItems.add(orderitem);
 		}

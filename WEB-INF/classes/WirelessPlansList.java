@@ -19,17 +19,30 @@ public class WirelessPlansList extends HttpServlet
 		String name = null;
 		String CategoryName = request.getParameter("maker");
 		
+		HashMap<String, WirelessPlan> allWirelessPlans = new HashMap<String, WirelessPlan>();
 		HashMap<String, WirelessPlan> hm = new HashMap<String, WirelessPlan>();
+
+		try
+		{
+			allWirelessPlans = MySqlDataStoreUtilities.getWirelessPlans();
+		}
+		catch(Exception e)
+		{
+
+		}
+
 		if(CategoryName==null)
 		{
-			hm.putAll(SaxParserDataStore.wirelessPlans); //need to make change here
+			hm.putAll(allWirelessPlans);
+			//hm.putAll(SaxParserDataStore.wirelessPlans); //need to make change here
 			name = "";
 		}
 		else
 		{
 			if(CategoryName.equals("basic"))
 			{
-				for(Map.Entry<String,WirelessPlan> entry : SaxParserDataStore.wirelessPlans.entrySet())
+				//for(Map.Entry<String,WirelessPlan> entry : SaxParserDataStore.wirelessPlans.entrySet())
+				for(Map.Entry<String,WirelessPlan> entry : allWirelessPlans.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Basic"))
 					{
@@ -40,7 +53,7 @@ public class WirelessPlansList extends HttpServlet
 			}
 			else if(CategoryName.equals("premium"))
 			{
-				for(Map.Entry<String,WirelessPlan> entry : SaxParserDataStore.wirelessPlans.entrySet())
+				for(Map.Entry<String,WirelessPlan> entry : allWirelessPlans.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Premium"))
 					{
@@ -51,7 +64,7 @@ public class WirelessPlansList extends HttpServlet
 			}
 			else if(CategoryName.equals("ultimate"))
 			{
-				for(Map.Entry<String,WirelessPlan> entry : SaxParserDataStore.wirelessPlans.entrySet())
+				for(Map.Entry<String,WirelessPlan> entry : allWirelessPlans.entrySet())
 				{
 					if(entry.getValue().getRetailer().equals("Ultimate"))
 					{
@@ -89,6 +102,7 @@ public class WirelessPlansList extends HttpServlet
 					"<input type='hidden' name='type' value='wirelessPlans'>"+
 					"<input type='hidden' name='maker' value='"+CategoryName+"'>"+
 					"<input type='hidden' name='access' value=''>"+
+					"<input type='hidden' name='price' value='"+wirelessPlan.getPrice()+"'>"+
 					"<input type='submit' class='btnbuy' value='Buy Now'></form></li>");
 			pw.print("<li><form method='post' action='WriteReview'>"+"<input type='hidden' name='name' value='"+entry.getKey()+"'>"+
 					"<input type='hidden' name='type' value='wirelessPlans'>"+
