@@ -26,7 +26,7 @@ public class MongoDBDataStoreUtilities
         return myReviews;
     }
 
-    public static String insertReview(String productname,String username,String producttype,String productmaker,String reviewrating,String reviewdate,String reviewtext,String retailerpin,String price,String retailercity)
+    public static String insertReview(String productname,String username,String producttype,String productmaker,String reviewrating,String reviewdate,String reviewtext,String retailerpin,String price,String retailercity, String reviewerAge, String reviewerGender, String reviewerOccupation)
     {
         try
         {		
@@ -41,6 +41,9 @@ public class MongoDBDataStoreUtilities
             append("reviewText", reviewtext).
             append("retailerpin", retailerpin).
             append("retailercity", retailercity).
+            append("reviewerAge", Integer.parseInt(reviewerAge)).
+            append("reviewerGender", reviewerGender).
+            append("reviewerOccupation", reviewerOccupation).
             append("price",(int) Double.parseDouble(price));
             myReviews.insert(doc);
             return "Successfull";
@@ -71,7 +74,7 @@ public class MongoDBDataStoreUtilities
                 }
                 ArrayList<Review> listReview = reviews.get(obj.getString("productName"));		
                 Review review =new Review(obj.getString("productName"),obj.getString("userName"),obj.getString("productType"),obj.getString("productMaker"),
-                obj.getString("reviewRating"),obj.getString("reviewDate"),obj.getString("reviewText"),obj.getString("retailerpin"),obj.getString("price"),obj.getString("retailercity"));
+                obj.getString("reviewRating"),obj.getString("reviewDate"),obj.getString("reviewText"),obj.getString("retailerpin"),obj.getString("price"),obj.getString("retailercity"),obj.getString("reviewerAge"),obj.getString("reviewerGender"),obj.getString("reviewerOccupation"));
                 //add to review hashmap
                 listReview.add(review);
             }
