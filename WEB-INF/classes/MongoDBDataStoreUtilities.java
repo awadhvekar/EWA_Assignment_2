@@ -83,7 +83,7 @@ public class MongoDBDataStoreUtilities
             return reviews;	
         }
     }
-/*
+    
     public static  ArrayList <Bestrating> topProducts()
     {
         ArrayList <Bestrating> Bestrate = new ArrayList <Bestrating> ();
@@ -173,7 +173,6 @@ public class MongoDBDataStoreUtilities
         }
         return mostsold;
     }
-    */
     
     //Get all the reviews grouped by product and zip code;
     public static ArrayList<Review> selectReviewForChart()
