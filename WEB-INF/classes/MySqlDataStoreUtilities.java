@@ -432,4 +432,96 @@ public class MySqlDataStoreUtilities
         }
         return hm;			
     }
+
+    public static String addproducts(String producttype,String productId,String productName,double productPrice,String productImage,String productManufacturer,String productCondition,double productDiscount,String prod)
+    {
+        String msg = "Product is added successfully";
+        try
+        {    
+            getConnection();
+            String addProductQurey = "INSERT INTO  Productdetails(ProductType,Id,productName,productPrice,productImage,productManufacturer,productCondition,productDiscount)" +
+            "VALUES (?,?,?,?,?,?,?,?);";
+            
+            String name = producttype;
+                        
+            PreparedStatement pst = conn.prepareStatement(addProductQurey);
+            pst.setString(1,name);
+            pst.setString(2,productId);
+            pst.setString(3,productName);
+            pst.setDouble(4,productPrice);
+            pst.setString(5,productImage);
+            pst.setString(6,productManufacturer);
+            pst.setString(7,productCondition);
+            pst.setDouble(8,productDiscount);
+            
+            pst.executeUpdate();
+            try
+            {
+                if (!prod.isEmpty())
+                {
+                    String addaprodacc =  "INSERT INTO  Product_accessories(productName,accessoriesName)" +
+                    "VALUES (?,?);";
+                    PreparedStatement pst1 = conn.prepareStatement(addaprodacc);
+                    pst1.setString(1,prod);
+                    pst1.setString(2,productId);
+                    pst1.executeUpdate();
+                }
+            }
+            catch(Exception e)
+            {
+                msg = "Erro while adding the product";
+                e.printStackTrace();
+            }
+        }
+        catch(Exception e)
+        {
+            msg = "Erro while adding the product";
+            e.printStackTrace();
+            
+        }
+        return msg;
+    }
+    public static String updateproducts(String producttype,String productId,String productName,double productPrice,String productImage,String productManufacturer,String productCondition,double productDiscount)
+    { 
+        String msg = "Product is updated successfully";
+        try
+        {    
+            getConnection();
+            String updateProductQurey = "UPDATE Productdetails SET productName=?,productPrice=?,productImage=?,productManufacturer=?,productCondition=?,productDiscount=? where Id =?;" ;                        
+            PreparedStatement pst = conn.prepareStatement(updateProductQurey);
+            
+            pst.setString(1,productName);
+            pst.setDouble(2,productPrice);
+            pst.setString(3,productImage);
+            pst.setString(4,productManufacturer);
+            pst.setString(5,productCondition);
+            pst.setDouble(6,productDiscount);
+            pst.setString(7,productId);
+            pst.executeUpdate();
+        }
+        catch(Exception e)
+        {
+            msg = "Product cannot be updated";
+            e.printStackTrace();    
+        }
+        return msg;	
+    }
+
+    public static String deleteproducts(String productId)
+    {   
+        String msg = "Product is deleted successfully";
+        try
+        {
+            getConnection();
+            String deleteproductsQuery ="Delete from Productdetails where Id=?";
+            PreparedStatement pst = conn.prepareStatement(deleteproductsQuery);
+            pst.setString(1,productId);
+            pst.executeUpdate();
+        }
+        catch(Exception e)
+        {
+            msg = "Proudct cannot be deleted";
+        }
+        return msg;
+    }
 }	

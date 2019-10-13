@@ -55,7 +55,10 @@ public class Utilities extends HttpServlet{
 				if(usertype.equalsIgnoreCase("storeManager"))
 				{
 					//Store manager can add/update/delete products
-					result = result + "<li><a href='ProductCatalog'><span class='glyphicon'>ProductCatalog</span></a></li>";
+					//result = result + "<li><a href='ProductCatalog'><span class='glyphicon'>ProductCatalog</span></a></li>";
+					result = result + "<li><a href='ProductModify?button=Addproduct'><span class='glyphicon'>AddProduct</span></a></li>"
+									+ "<li><a href='ProductModify?button=Updateproduct'><span class='glyphicon'>UpdateProduct</span></a></li>"
+									+ "<li><a href='ProductModify?button=Deleteproduct'><span class='glyphicon'>DeleteProduct</span></a></li>";
 				}
 				else if(usertype.equalsIgnoreCase("salesman"))
 				{
