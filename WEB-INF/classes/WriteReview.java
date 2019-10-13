@@ -85,7 +85,24 @@ public class WriteReview extends HttpServlet
             pw.print("<tr>");
             pw.print("<td> Retailer City: </td>");
             pw.print("<td> <input type='text' name='retailercity'> </td>");
-            pw.print("</tr>");							
+            pw.print("</tr>");
+            
+            pw.print("<tr>");
+            pw.print("<td> Reviewer Age: </td>");
+            pw.print("<td> <input type='text' name='reviewerAge'> </td>");
+            pw.print("</tr>");
+
+            pw.print("<tr><td> Reviewer Gender: </td><td>");
+            pw.print("<select name='reviewerGender'>");
+            pw.print("<option value='Male' selected>Male</option>");
+            pw.print("<option value='Female'>Female</option>");
+            pw.print("<option value='Other'>Other</option>"); 
+            pw.print("</td></tr>");
+
+            pw.print("<tr>");
+            pw.print("<td> Reviewer Occupation: </td>");
+            pw.print("<td> <input type='text' name='reviewerOccupation'> </td>");
+            pw.print("</tr>");
 
             pw.print("<tr>");
             pw.print("<td> Review Date: </td>");

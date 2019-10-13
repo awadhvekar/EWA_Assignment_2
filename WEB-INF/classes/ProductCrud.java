@@ -289,33 +289,8 @@ public class ProductCrud extends HttpServlet
         }
         else if(action.equals("delete"))
         {
-            msg = "bad";
             /*
-            allconsoles = MySqlDataStoreUtilities.getConsoles();
-            if(allconsoles.containsKey(productId))
-            {
-                msg = "good";
-                System.out.print("console");
-            }
-            
-            allgames = MySqlDataStoreUtilities.getGames();
-            if(allgames.containsKey(productId))
-            {
-                msg = "good";
-            }
-
-            alltablets = MySqlDataStoreUtilities.getTablets();
-            if(alltablets.containsKey(productId))
-            {
-                msg = "good";
-            }
-			  
-            allaccessories = MySqlDataStoreUtilities.getAccessories();
-            if(allaccessories.containsKey(productId))
-            {
-                msg = "good";
-            }
-            */
+            msg = "bad";
 
             allTelevisions = MySqlDataStoreUtilities.getTelevisions();
             if(allTelevisions.containsKey(productId))
@@ -325,6 +300,7 @@ public class ProductCrud extends HttpServlet
 		       		
             if (msg.equals("good"))
             {
+            */
                 try
                 {  
                     System.out.print("delete the prodcut");
@@ -335,11 +311,13 @@ public class ProductCrud extends HttpServlet
                     msg = "Product cannot be deleted";
                 }
                 msg = "Product has been successfully deleted";
+            /*
             }
             else
             {
                 msg = "Product not available";
             }
+            */
 		}	
 				
         pw.print("<div id='content'><div class='post'><h2 class='title meta'>");

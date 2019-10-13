@@ -21,9 +21,12 @@ public class Review implements Serializable
 	private String reviewText;
 	private String retailerpin;
 	private String price;
-	private String retailercity;
+    private String retailercity;
+    private String reviewerAge;
+    private String reviewerGender;
+    private String reviewerOccupation;
 	
-    public Review (String productName,String userName,String productType,String productMaker,String reviewRating,String reviewDate,String reviewText,String retailerpin,String price,String retailercity)
+    public Review (String productName,String userName,String productType,String productMaker,String reviewRating,String reviewDate,String reviewText,String retailerpin,String price,String retailercity, String reviewerAge, String reviewerGender, String reviewerOccupation)
     {
 		this.productName=productName;
 		this.userName=userName;
@@ -34,7 +37,10 @@ public class Review implements Serializable
 	 	this.reviewText=reviewText;
 		this.retailerpin=retailerpin;
 		this.price= price;
-		this.retailercity= retailercity;
+        this.retailercity= retailercity;
+        this.reviewerAge= reviewerAge;
+        this.reviewerGender= reviewerGender;
+        this.reviewerOccupation= reviewerOccupation;
 	}
 
     public Review(String productName, String retailerpin, String reviewRating, String reviewText)
@@ -45,6 +51,33 @@ public class Review implements Serializable
        this.reviewText = reviewText;
     }
 
+    public String getReviewerAge()
+    {
+        return reviewerAge;
+    }
+    public void setReviewerAge(String reviewerAge)
+    {
+        this.reviewerAge = reviewerAge;
+    }
+
+    public String getReviewerGender()
+    {
+        return reviewerGender;
+    }
+    public void setReviewerGender(String reviewerGender)
+    {
+        this.reviewerGender = reviewerGender;
+    }
+
+    public String getReviewerOccupation()
+    {
+        return reviewerOccupation;
+    }
+    public void setReviewerOccupation(String reviewerOccupation)
+    {
+        this.reviewerOccupation = reviewerOccupation;
+    }
+    
     public String getProductName()
     {
         return productName;
